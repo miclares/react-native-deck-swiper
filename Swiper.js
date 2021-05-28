@@ -86,11 +86,13 @@ class Swiper extends Component {
     Dimensions.removeEventListener('change', this.onDimensionsChange)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.cards, nextProps.cards)) {
-      const swipedAllCards = this.props.cardIndex === this.props.cards.length
-      this.setState({ swipedAllCards })
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (!isEqual(prevState.cards, nextProps.cards)) {
+      const swipedAllCards = nextProps.cardIndex === nextProps.cards.length
+      console.log('{ cards: nextProps.cards, swipedAllCards }', { cards: nextProps.cards, swipedAllCards })
+      return { cards: nextProps.cards, swipedAllCards };
     }
+    return { cards: nextProps.cards };
   }
 
   getCardStyle = () => {
